@@ -365,24 +365,16 @@ class OuterPropagation(object):
             for id in range(max_o_epochs-1):
                 if True or id <= 1:
                     epoch_id[id], tr_metrics[id], val_metrics[id] = self.fit(id, sess, summary_writers)
-                else:
-                    epoch_id[id] = epoch_id[1]
-                    tr_metrics[id] = tr_metrics[1]
-                    val_metrics[id] = val_metrics[1]
-                if id == 0:
-                    te_metrics[id] = self.get_predictions(sess, data='test')
-                    if self.config.max_outer_epochs > 1:
+                # else:
+                #     epoch_id[id] = epoch_id[1]
+                #     tr_metrics[id] = tr_metrics[1]
+                #     val_metrics[id] = val_metrics[1]
+                te_metrics[id] = self.get_predictions(sess, data='test')
+                if self.config.max_outer_epochs > 1:
                         self.update_global_predictions(sess)
                         self.update_global_predictions_truth(sess, data='train')
                         # variable reset
-                        sess.run(self.model.layers[-1].var_reassign)
-                else:
-                    te_metrics[id] = self.get_predictions(sess, data='test')
-
-                    self.update_global_predictions(sess)
-                    self.update_global_predictions_truth(sess, data='train')
-                    sess.run(self.increment_oe)
-
+                        # sess.run(self.model.layers[-1].var_reassign)
                 # mean_scores, std_scores = self.get_scores(sess)
                 # print('Scores: mean-', mean_scores, ' std-', std_scores)
 
@@ -391,9 +383,9 @@ class OuterPropagation(object):
                 pos = 0
 
                 for i in range(max_o_epochs-1):
-                    metric = val_metrics[i]['micro_f1']
-                    if self.config.dataset_name in ['amazon', 'facebook']:
-                        metric = 1 - val_metrics[i]['bae']
+                    metric = (val_metrics[i]['micro_f1'] + val_metrics[i]['macro_f1'])/2
+                    # if self.config.dataset_name in ['amazon', 'facebook']:
+                    #     metric = 1 - val_metrics[i]['bae']
                     if best_score <= metric:
                         pos = i
                         best_score = metric
@@ -449,14 +441,14 @@ def init_model(config, dataset):
 
 
 def dump_results(config, i_epoch, tr_metrics, val_metrics, te_metrics):
-    headers = ['O_EPOCH', 'I_EPOCH', 'TR_F1', 'VAL_LOSS', 'VAL_F1', 'k-MICRO-F1', 'k-MACRO-F1', 'MICRO-F1', 'MACRO-F1', 'MC_ACC', 'ML_ACC',  'bae']
+    headers = ['O_EPOCH', 'I_EPOCH', 'TR_Loss', 'VAL_LOSS', 'VAL_Mi-F1', 'VAL_Ma-F1', 'k-MICRO-F1', 'k-MACRO-F1', 'MICRO-F1', 'MACRO-F1', 'MC_ACC', 'ML_ACC',  'bae']
     values = []
 
     max_oe = config.max_outer_epochs
     if max_oe > 1:
         max_oe += 2
     for i in range(max_oe):
-        values.append(np.around([i, i_epoch[i], tr_metrics[i]['loss'], val_metrics[i]['loss'], val_metrics[i]['micro_f1'],
+        values.append(np.around([i, i_epoch[i], tr_metrics[i]['loss'], val_metrics[i]['loss'], val_metrics[i]['micro_f1'], val_metrics[i]['macro_f1'],
                                  te_metrics[i]['k_micro_f1'], te_metrics[i]['k_macro_f1'], te_metrics[i]['micro_f1'],
                                  te_metrics[i]['macro_f1'], te_metrics[i]['mc_accuracy'], te_metrics[i]['ml_accuracy'], te_metrics[i]['bae']], decimals=5))
 

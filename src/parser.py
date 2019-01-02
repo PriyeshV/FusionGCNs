@@ -15,10 +15,10 @@ class Parser(object):  #
         parser.add_argument("--aggKernel", default='kipf', help="kernel names",
                             choices=['kipf', 'simple', 'chebyshev', 'maxpool', 'add_attention', 'mul_attention'])
         parser.add_argument("--featureless", default=False, help="Non-attributed graphs", type=self.str2bool)
-        parser.add_argument("--node_features", default='h', help="x,h")
+        parser.add_argument("--node_features", default='x', help="x,h")
         parser.add_argument("--neighbor_features", default='h', help="x,h")
-        parser.add_argument("--max_depth", default=2, help="Maximum path depth", type=int)
-        parser.add_argument("--dims", default='16,16,8,8,8', help="Dimensions of hidden layers: comma separated")
+        parser.add_argument("--max_depth", default=1, help="Maximum path depth", type=int)
+        parser.add_argument("--dims", default='128,128,8,8,8', help="Dimensions of hidden layers: comma separated")
         parser.add_argument("--skip_connections", default=True, help="output layer added", type=self.str2bool)
 
         parser.add_argument("--shared_weights", default=1, type=int)
@@ -45,9 +45,9 @@ class Parser(object):  #
         parser.add_argument("--batch_size", default=128, help="Batch size", type=int)
         parser.add_argument("--wce", default=True, help="Weighted cross entropy", type=self.str2bool)
         parser.add_argument("--lr", default=1e-2, help="Learning rate", type=float)
-        parser.add_argument("--l2", default=1e-3, help="L2 loss", type=float)
+        parser.add_argument("--l2", default=1e-6, help="L2 loss", type=float)
         parser.add_argument("--opt", default='adam', help="Optimizer type", choices=['adam', 'sgd', 'rmsprop'])
-        parser.add_argument("--drop_in", default=0.5, help="Dropout for input", type=float, choices=np.round(np.arange(0, 1, 0.05),2))
+        parser.add_argument("--drop_in", default=0.25, help="Dropout for input", type=float, choices=np.round(np.arange(0, 1, 0.05),2))
         # parser.add_argument("--drop_out", default=0.5, help="Dropout for Fusion", type=float,
         #                     choices=np.round(np.arange(0, 1, 0.05), 2))
 
