@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'F+S_cora_'
+machine = 'Pubmed_'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs
@@ -44,11 +44,11 @@ if not get_results_only:
                                                    'drop_in', 'drop_lr', 'wce', 'percents', 'folds',
                                                    'skip_connections', 'propModel', 'timestamp']
 
-    args['dataset'] = ['cora']
+    args['dataset'] = ['pubmed']
     args['batch_size'] = [128]  # 16
     args['dims'] = ['16,16,16,16,16']
-    args['neighbors'] = ['all,all,all,all,all']
-    args['max_depth'] = [1, 2, 3, 4, 5]  # 1
+    args['neighbors'] = ['all,all,all,all']
+    args['max_depth'] = [1, 2, 3]  # 1
     args['lr'] = [1e-2]
     args['l2'] = [1e-3]
     args['drop_in'] = [0.5]
@@ -57,7 +57,7 @@ if not get_results_only:
     args['percents'] = [10]
     args['folds'] =['1,2,3,4,5']
     args['skip_connections'] = [True]
-    args['propModel'] = ['propagation_gated']
+    args['propModel'] = ['propagation_fusion']
 
     pos = args['hyper_params'].index('dataset')
     args['hyper_params'][0], args['hyper_params'][pos] = args['hyper_params'][pos], args['hyper_params'][0]

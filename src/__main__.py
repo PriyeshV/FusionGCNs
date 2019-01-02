@@ -515,7 +515,7 @@ def main():
     results = np.vstack(perc_results)
     file_name = os.path.join(config.paths['experiment'], 'metrics.txt')
     np.savetxt(file_name, results, header=str(headers), comments='', fmt='%1.5f')
-    print('Mico: ', results[0][7], '|  Macro: ', results[0][8])
+    print('Mico: ', results[0][8], '|  Macro: ', results[0][9])
 
     np.save(path.join(config.paths['experiment'], config.dataset_name+str(config.max_depth)+'_batch_results.npy'), outer_tracking)
 
