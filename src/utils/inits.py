@@ -2,54 +2,54 @@ import tensorflow as tf
 import numpy as np
 
 
-def identity(shape, scale=1, name=None):
+def identity(shape, scale=1, name=None, trainable=True):
     "Diagonal init"
-    return tf.Variable(tf.eye(shape[0])*scale, name=name)
+    return tf.Variable(tf.eye(shape[0])*scale, name=name, trainable=trainable)
 
 
-def uniform(shape, scale=0.05, name=None):
+def uniform(shape, scale=0.05, name=None, trainable=True):
     """Uniform init."""
     initial = tf.random_uniform(shape, minval=-scale, maxval=scale, dtype=tf.float32)
-    return tf.Variable(initial, name=name)
+    return tf.Variable(initial, name=name, trainable=trainable)
 
 
-def glorot(shape, name=None):
+def glorot(shape, name=None, trainable=True):
     """Glorot & Bengio (AISTATS 2010) init."""
     # init_range = np.sqrt(6.0/(shape[0]+shape[1]))
     # initial = tf.random_uniform(shape, minval=-init_range, maxval=init_range, dtype=tf.float32)
     init_range = np.sqrt(2.0/(shape[1]))
     shape = tf.cast(shape, tf.int32)
     initial = tf.random_normal(shape, dtype=tf.float32) * init_range
-    return tf.Variable(initial, name=name)
+    return tf.Variable(initial, name=name, trainable=trainable)
 
 
-def tanh_init(shape, name=None, dtype=tf.float32, partition_info=None):
+def tanh_init(shape, name=None, dtype=tf.float32, partition_info=None, trainable=True):
     init_range = np.sqrt(6.0/(shape[0]+shape[1]))
     initial = tf.random_uniform(shape, minval=-init_range, maxval=init_range, dtype=tf.float32)
-    return tf.Variable(initial, name=name)
+    return tf.Variable(initial, name=name, trainable=trainable)
 
 
-def sigmoid_init(shape, name=None, dtype=tf.float32, partition_info=None):
+def sigmoid_init(shape, name=None, dtype=tf.float32, partition_info=None, trainable=True):
     init_range = 4*np.sqrt(6.0/(shape[0]+shape[1]))
     initial = tf.random_uniform(shape, minval=-init_range, maxval=init_range, dtype=tf.float32)
-    return tf.Variable(initial, name=name)
+    return tf.Variable(initial, name=name, trainable=trainable)
 
 
-def zeros(shape, name=None):
+def zeros(shape, name=None, trainable=True):
     """All zeros."""
     initial = tf.zeros(shape, dtype=tf.float32)
-    return tf.Variable(initial, name=name)
+    return tf.Variable(initial, name=name, trainable=trainable)
 
 
-def const(shape, val=0.1, name=None):
+def const(shape, val=0.1, name=None, trainable=True):
     initial = tf.constant(val, shape=shape, dtype=tf.float32)
-    return tf.Variable(initial, name=name)
+    return tf.Variable(initial, name=name, trainable=trainable)
 
 
-def ones(shape, name=None):
+def ones(shape, name=None, trainable=True):
     """All ones."""
     initial = tf.ones(shape, dtype=tf.float32)
-    return tf.Variable(initial, name=name)
+    return tf.Variable(initial, name=name, trainable=trainable)
 
 
 def orthogonal(shape):

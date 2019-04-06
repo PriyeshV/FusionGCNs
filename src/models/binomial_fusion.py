@@ -1,8 +1,9 @@
 from src.models.model import Model
 from src.utils.metrics import *
 from src.layers.dense import Dense
-# from src.layers.fusion_sum import Fusion
-from src.layers.fusion_weighted_sum import Fusion
+# from src.layers.fusion_weighted_sum import Fusion
+# from src.layers.fusion_pooling import Fusion
+# from src.layers.fusion_lstm_attention import Fusion
 
 
 class Propagation(Model):
@@ -24,6 +25,7 @@ class Propagation(Model):
 
         # Sparse Features
         self.sparse_features = config.sparse_features
+        self.fusion_func = config.fusion_class
 
         if config.add_labels:
             self.prev_pred = data['labels']
@@ -73,8 +75,7 @@ class Propagation(Model):
                                                shared_weights=self.shared_weights, nnz_features=self.data['nnz_features'],
                                                sparse_inputs=self.sparse_inputs[i], skip_connection=self.skip_conn,
                                                add_labels=self.add_labels, logging=self.logging, model_name=self.name))
-
-        self.layers.append(Fusion(n_layers=self.n_layers-1, x_names=self.feature_names,
+        self.layers.append(self.fusion_func(n_layers=self.n_layers-1, x_names=self.feature_names,
                                   input_dim=self.dims[1], output_dim=self.output_dims,
                                   dropout=self.drop_label,
                                   act=lambda x:x, bias=self.bias,
