@@ -9,12 +9,12 @@ class Parser(object):  #
         parser = argparse.ArgumentParser()
 
         # Node attribute Aggregator
-        parser.add_argument("--propModel", default='binomial', help='propagation model names',
+        parser.add_argument("--propModel", default='binomial_fusion', help='propagation model names',
                             choices=['propagation', 'propagation_fusion', 'krylov1', 'krylov2'
                                      'chebyshev', 'attention', 'binomial', 'binomial_fusion'])
-        parser.add_argument("--aggKernel", default='chebyshev', help="kernel names",
+        parser.add_argument("--aggKernel", default='kipf', help="kernel names",
                             choices=['kipf', 'simple', 'chebyshev', 'maxpool', 'add_attention', 'mul_attention'])
-        parser.add_argument("--fusion", default='attention', choices=['linear', 'maxpool', 'attention', 'lstm_attention'])
+        parser.add_argument("--fusion", default='attention', choices=['mean_pool', 'max_pool', 'attention', 'lstm_attention'])
 
         parser.add_argument("--featureless", default=False, help="Non-attributed graphs", type=self.str2bool)
         parser.add_argument("--node_features", default='h', help="x,h")
@@ -37,7 +37,7 @@ class Parser(object):  #
 
         # Dataset Details
         parser.add_argument("--dataset", default='amazon', help="Dataset to evluate | Check Datasets folder",
-                            choices=['cora', 'citeseer', 'wiki', 'amazon', 'facebook', 'cora_multi', 'movielens',
+                            choices=['cora', 'citeseer', 'wiki', 'amazon', 'facebook', 'cora_multi', 'movielens', 'pubmed',
                                     'ppi_gs_trans', 'blogcatalog', 'genes_fn', 'mlgene', 'ppi_gs', 'reddit_trans', 'reddit_ind'])
         parser.add_argument("--labels", default='labels_random', help="Label Sampling Type")
         parser.add_argument("--percents", default='10', help="Training percent comma separated, ex:5,10,20")
