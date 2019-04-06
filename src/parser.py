@@ -9,12 +9,12 @@ class Parser(object):  #
         parser = argparse.ArgumentParser()
 
         # Node attribute Aggregator
-        parser.add_argument("--propModel", default='binomial_fusion', help='propagation model names',
+        parser.add_argument("--propModel", default='binomial', help='propagation model names',
                             choices=['propagation', 'propagation_fusion', 'krylov1', 'krylov2'
                                      'chebyshev', 'attention', 'binomial', 'binomial_fusion'])
-        parser.add_argument("--aggKernel", default='kipf', help="kernel names",
+        parser.add_argument("--aggKernel", default='chebyshev', help="kernel names",
                             choices=['kipf', 'simple', 'chebyshev', 'maxpool', 'add_attention', 'mul_attention'])
-        parser.add_argument("--fusion", default='lstm_attention', choices=['linear', 'maxpool', 'attention', 'lstm_attention'])
+        parser.add_argument("--fusion", default='attention', choices=['linear', 'maxpool', 'attention', 'lstm_attention'])
 
         parser.add_argument("--featureless", default=False, help="Non-attributed graphs", type=self.str2bool)
         parser.add_argument("--node_features", default='h', help="x,h")

@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'Fusion_Amazon_'
+machine = 'Fusion_Human_Ind'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs
@@ -43,18 +43,19 @@ if not get_results_only:
     # The names should be the same as argument names in parser.py
     args['hyper_params'] = args['hyper_params'] + ['dataset', 'batch_size', 'dims', 'neighbors', 'max_depth', 'lr', 'l2',
                                                    'drop_in', 'drop_lr', 'wce', 'percents', 'folds',
-                                                   'skip_connections', 'propModel', 'timestamp']
+                                                   'skip_connections', 'propModel',
+                                                   'drop_lr', 'timestamp']
 
-    args['dataset'] = ['amazon']
+    args['dataset'] = ['ppi_gs']
     args['batch_size'] = [512]  # 16
-    args['dims'] = ['8,8,8,8,8']
+    args['dims'] = ['128,128,128,128,128']
     args['neighbors'] = ['all,all,all,all,all']
     args['max_depth'] = [1, 2, 3, 4]  # 1
     args['lr'] = [1e-2]
     args['l2'] = [0.]
     args['drop_in'] = [0.]
     args['drop_lr'] = [True]
-    args['wce'] = [True]
+    args['wce'] = [False]
     args['percents'] = [10]
     args['folds'] = ['1,2,3,4,5']
     args['skip_connections'] = [True]

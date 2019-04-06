@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'Fusion_Amazon_'
+machine = 'Fusion_Movie_'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs
@@ -45,18 +45,18 @@ if not get_results_only:
                                                    'drop_in', 'drop_lr', 'wce', 'percents', 'folds',
                                                    'skip_connections', 'propModel', 'timestamp']
 
-    args['dataset'] = ['amazon']
-    args['batch_size'] = [512]  # 16
-    args['dims'] = ['8,8,8,8,8']
+    args['dataset'] = ['movie']
+    args['batch_size'] = [64]  # 16
+    args['dims'] = ['128,128,128,128,128']
     args['neighbors'] = ['all,all,all,all,all']
-    args['max_depth'] = [1, 2, 3, 4]  # 1
+    args['max_depth'] = [1]  # 1
     args['lr'] = [1e-2]
-    args['l2'] = [0.]
+    args['l2'] = [1e-6]
     args['drop_in'] = [0.]
     args['drop_lr'] = [True]
     args['wce'] = [True]
     args['percents'] = [10]
-    args['folds'] = ['1,2,3,4,5']
+    args['folds'] =['1,2,3,4,5']
     args['skip_connections'] = [True]
     args['propModel'] = ['binomial_fusion']
 

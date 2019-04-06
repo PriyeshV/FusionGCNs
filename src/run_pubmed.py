@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'Pubmed_'
+machine = 'Fusion_Pubmed_'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs
@@ -16,17 +16,18 @@ n_gpus = 1
 n_parallel_threads = 1
 
 args = dict()
-args['hyper_params'] = ['aggKernel', 'node_features', 'neighbor_features', 'shared_weights', 'max_outer', 'gpu']
+args['hyper_params'] = ['aggKernel', 'fusion', 'node_features', 'neighbor_features', 'shared_weights', 'max_outer', 'gpu']
 args['aggKernel'] = [sys.argv[1]]
-args['node_features'] = [sys.argv[2]]
-args['neighbor_features'] = [sys.argv[3]]
-args['shared_weights'] = [sys.argv[4]]
-args['max_outer'] = [sys.argv[5]]
-args['gpu'] = [sys.argv[6]]
+args['fusion'] = [sys.argv[2]]
+args['node_features'] = [sys.argv[3]]
+args['neighbor_features'] = [sys.argv[4]]
+args['shared_weights'] = [sys.argv[5]]
+args['max_outer'] = [sys.argv[6]]
+args['gpu'] = [sys.argv[7]]
 
 # Set Hyper-parameters
 now = datetime.now()
-name = machine + args['aggKernel'][0] + '_' + args['node_features'][0] + '_' + args['neighbor_features'][0] + '_' + args['shared_weights'][0] + '_' + args['max_outer'][0] + '_'
+name = machine + args['aggKernel'][0] + '_' + args['fusion'][0] + '_' + args['node_features'][0] + '_' + args['neighbor_features'][0] + '_' + args['shared_weights'][0] + '_' + args['max_outer'][0] + '_'
 if not get_results_only:
     timestamp = name + str(now.month)+'|'+str(now.day)+'|'+str(now.hour)+':'+str(now.minute)+':'+str(now.second)  # +':'+str(now.microsecond)
 else:
@@ -57,7 +58,7 @@ if not get_results_only:
     args['percents'] = [10]
     args['folds'] =['1,2,3,4,5']
     args['skip_connections'] = [True]
-    args['propModel'] = ['propagation_fusion']
+    args['propModel'] = ['binomial_fusion']
 
     pos = args['hyper_params'].index('dataset')
     args['hyper_params'][0], args['hyper_params'][pos] = args['hyper_params'][pos], args['hyper_params'][0]

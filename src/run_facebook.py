@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'reddit__trans__'
+machine = 'fb_'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs
@@ -16,17 +16,18 @@ n_gpus = 1
 n_parallel_threads = 1
 
 args = dict()
-args['hyper_params'] = ['aggKernel', 'node_features', 'neighbor_features', 'shared_weights', 'max_outer', 'gpu']
+args['hyper_params'] = ['aggKernel', 'fusion', 'node_features', 'neighbor_features', 'shared_weights', 'max_outer', 'gpu']
 args['aggKernel'] = [sys.argv[1]]
-args['node_features'] = [sys.argv[2]]
-args['neighbor_features'] = [sys.argv[3]]
-args['shared_weights'] = [sys.argv[4]]
-args['max_outer'] = [sys.argv[5]]
-args['gpu'] = [sys.argv[6]]
+args['fusion'] = [sys.argv[2]]
+args['node_features'] = [sys.argv[3]]
+args['neighbor_features'] = [sys.argv[4]]
+args['shared_weights'] = [sys.argv[5]]
+args['max_outer'] = [sys.argv[6]]
+args['gpu'] = [sys.argv[7]]
 
 # Set Hyper-parameters
 now = datetime.now()
-name = machine + args['aggKernel'][0] + '_' + args['node_features'][0] + '_' + args['neighbor_features'][0] + '_' + args['shared_weights'][0] + '_' + args['max_outer'][0] + '_'
+name = machine + args['aggKernel'][0] + '_' + args['fusion'][0] + '_' + args['node_features'][0] + '_' + args['neighbor_features'][0] + '_' + args['shared_weights'][0] + '_' + args['max_outer'][0] + '_'
 if not get_results_only:
     timestamp = name + str(now.month)+'|'+str(now.day)+'|'+str(now.hour)+':'+str(now.minute)+':'+str(now.second)  # +':'+str(now.microsecond)
 else:
@@ -44,22 +45,20 @@ if not get_results_only:
                                                    'drop_in', 'drop_lr', 'wce', 'percents', 'folds',
                                                    'skip_connections', 'propModel', 'timestamp']
 
-    args['dataset'] = ['reddit_trans']
-    args['batch_size'] = [512]  # 16
-    # if args['node_features'] == 'x':
-    #     args['batch_size'] = [256]  # 16
-    args['dims'] = ['128,128,128,128']
-    args['neighbors'] = ['25,10,10,10']
-    args['max_depth'] = [2]  # 1
+    args['dataset'] = ['facebook']
+    args['batch_size'] = [128]  # 16
+    args['dims'] = ['8,8,8,8,8']
+    args['neighbors'] = ['all,all,all,all,all']
+    args['max_depth'] = [1, 2, 3, 4]  # 1
     args['lr'] = [1e-2]
     args['l2'] = [0.]
     args['drop_in'] = [0.]
     args['drop_lr'] = [True]
-    args['wce'] = [False]
+    args['wce'] = [True]
     args['percents'] = [10]
     args['folds'] = ['1,2,3,4,5']
     args['skip_connections'] = [True]
-    args['propModel'] = ['propagation_fusion']
+    args['propModel'] = ['binomial_fusion']
 
     pos = args['hyper_params'].index('dataset')
     args['hyper_params'][0], args['hyper_params'][pos] = args['hyper_params'][pos], args['hyper_params'][0]
