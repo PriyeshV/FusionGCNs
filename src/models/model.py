@@ -54,6 +54,7 @@ class Model(object):
         # Build sequential layer model
         self.data['activations'].append(self.inputs)
         for i, layer in enumerate(self.layers):
+            print(i, layer, self.act[i])
             hidden = layer(self.data)
 
             # hidden = self.act[i](hidden)
@@ -62,7 +63,6 @@ class Model(object):
                 print('Hop Skip connection| From: ', i, ' To: ', i+1, layer)
                 hidden += self.data['activations'][-1]
 
-            print(i, layer, self.act[i])
             hidden = self.act[i](hidden)
             self.data['activations'].append(hidden)
         self.outputs = self.data['activations'][-1]

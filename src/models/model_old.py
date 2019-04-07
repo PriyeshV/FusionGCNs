@@ -59,15 +59,16 @@ class Model(object):
                 self.data['activations'].append(self.act[i](h0))
             else:
                 hidden = layer(self.data)
+            # hidden = self.act[i](hidden)
 
-            # Add skip connections and pass it through and activation layer
+            # Add skip connections
             if i != self.n_layers:
                 if self.skip_conn:
                     if True or i != 0:
                         print('Hop Skip connection| From: ', i, ' To: ', i+1, layer)
                         hidden += self.data['activations'][-1]
-                hidden = self.act[i](hidden)
 
+            hidden = self.act[i](hidden)
             self.data['activations'].append(hidden)
         self.outputs = self.data['activations'][-1]
 

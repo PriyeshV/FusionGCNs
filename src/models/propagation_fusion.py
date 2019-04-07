@@ -1,6 +1,5 @@
 from src.models.model_old import Model
 from src.utils.metrics import *
-from src.layers.fusion_weighted_sum import Fusion
 
 
 class Propagation(Model):
@@ -27,6 +26,7 @@ class Propagation(Model):
         if config.add_labels:
             self.prev_pred = data['labels']
 
+        self.fusion_func = config.fusion_class
         self.conv_layer = config.kernel_class
         self.n_layers = config.max_depth
         self.skip_conn = config.skip_connections
@@ -62,7 +62,7 @@ class Propagation(Model):
                                                sparse_inputs=self.sparse_inputs[i], skip_connection=self.skip_conn,
                                                add_labels=self.add_labels, logging=self.logging, model_name=self.name))
 
-        self.layers.append(Fusion(n_layers=self.n_layers, x_names=self.feature_names,
+        self.layers.append(self.fusion_func(n_layers=self.n_layers, x_names=self.feature_names,
                                  input_dim=self.dims[1], output_dim=self.output_dims,
                                  dropout=self.drop_fuse,
                                  act=(lambda x: x), bias=self.bias,

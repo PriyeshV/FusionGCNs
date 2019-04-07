@@ -45,7 +45,7 @@ if not get_results_only:
                                                    'drop_in', 'drop_lr', 'wce', 'percents', 'folds',
                                                    'skip_connections', 'propModel', 'timestamp']
 
-    args['dataset'] = ['movie']
+    args['dataset'] = ['movielens']
     args['batch_size'] = [64]  # 16
     args['dims'] = ['128,128,128,128,128']
     args['neighbors'] = ['all,all,all,all,all']
@@ -58,7 +58,7 @@ if not get_results_only:
     args['percents'] = [10]
     args['folds'] =['1,2,3,4,5']
     args['skip_connections'] = [True]
-    args['propModel'] = ['binomial_fusion']
+    args['propModel'] = ['propagation_fusion']
 
     pos = args['hyper_params'].index('dataset')
     args['hyper_params'][0], args['hyper_params'][pos] = args['hyper_params'][pos], args['hyper_params'][0]

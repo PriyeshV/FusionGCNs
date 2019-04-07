@@ -9,14 +9,14 @@ cd ~
 wget https://www.python.org/ftp/python/3.5.2/Python-3.5.2.tgz
 sudo tar xzf Python-3.5.2.tgz
 cd Python-3.5.2
-sudo ./configure --with-ensurepip=install --prefix=/data/
+sudo ./configure --with-ensurepip=install --prefix=/data/Python-3.5.2
 sudo make altinstall
 #sudo apt-get install python3.5-venv
 
 cd ~
 mkdir Virtualenvs
-python3.5 -m venv Virtualenvs/tf-1.3-nx0.19
-source Virtualenvs/tf-1.3-nx0.19/bin/activate
+python3.5 -m venv Virtualenvs/tf-1.3-nx1.9
+source Virtualenvs/tf-1.3-nx1.9/bin/activate
 pip install --upgrade pip
 pip install numpy
 pip install pillow
@@ -28,7 +28,7 @@ pip install python-dateutil
 pip install matplotlib
 pip install pyyaml
 pip install networkx==1.9
-pip install tensorflow-gpu==1.3.0
+pip install tensorflow_gpu==1.3.0
 #pip install --upgrade https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.3.0-cp35-cp35m-linux_x86_64.whl
 #pip install tensorflow-gpu
 

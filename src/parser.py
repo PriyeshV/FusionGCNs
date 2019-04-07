@@ -9,17 +9,17 @@ class Parser(object):  #
         parser = argparse.ArgumentParser()
 
         # Node attribute Aggregator
-        parser.add_argument("--propModel", default='binomial_fusion', help='propagation model names',
+        parser.add_argument("--propModel", default='propagation_fusion', help='propagation model names',
                             choices=['propagation', 'propagation_fusion', 'krylov1', 'krylov2'
                                      'chebyshev', 'attention', 'binomial', 'binomial_fusion'])
         parser.add_argument("--aggKernel", default='kipf', help="kernel names",
                             choices=['kipf', 'simple', 'chebyshev', 'maxpool', 'add_attention', 'mul_attention'])
-        parser.add_argument("--fusion", default='attention', choices=['mean_pool', 'max_pool', 'attention', 'lstm_attention'])
+        parser.add_argument("--fusion", default='max_pool', choices=['mean_pool', 'max_pool', 'attention', 'lstm_attention'])
 
         parser.add_argument("--featureless", default=False, help="Non-attributed graphs", type=self.str2bool)
         parser.add_argument("--node_features", default='h', help="x,h")
         parser.add_argument("--neighbor_features", default='h', help="x,h")
-        parser.add_argument("--max_depth", default=2, help="Maximum path depth", type=int)
+        parser.add_argument("--max_depth", default=3, help="Maximum path depth", type=int)
         parser.add_argument("--dims", default='8,8,8,8,8', help="Dimensions of hidden layers: comma separated")
         parser.add_argument("--skip_connections", default=True, help="output layer added", type=self.str2bool)
 

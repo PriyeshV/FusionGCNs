@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'Fusion_Pubmed_'
+machine = 'Fusion_Blog_'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs
@@ -45,14 +45,14 @@ if not get_results_only:
                                                    'drop_in', 'drop_lr', 'wce', 'percents', 'folds',
                                                    'skip_connections', 'propModel', 'timestamp']
 
-    args['dataset'] = ['pubmed']
-    args['batch_size'] = [128]  # 16
-    args['dims'] = ['16,16,16,16,16']
-    args['neighbors'] = ['all,all,all,all']
-    args['max_depth'] = [1, 2, 3]  # 1
+    args['dataset'] = ['blogcatalog']
+    args['batch_size'] = [512]  # 16
+    args['dims'] = ['128,128,128,128,128']
+    args['neighbors'] = ['all,all,all,all,all']
+    args['max_depth'] = [1]  # 1
     args['lr'] = [1e-2]
-    args['l2'] = [1e-3]
-    args['drop_in'] = [0.5]
+    args['l2'] = [1e-6]
+    args['drop_in'] = [0.]
     args['drop_lr'] = [True]
     args['wce'] = [True]
     args['percents'] = [10]
