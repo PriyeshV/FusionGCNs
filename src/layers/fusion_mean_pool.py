@@ -18,7 +18,8 @@ class Fusion(Layer):
         self.bias = bias
 
         # Default
-        self.fusion_dim = self.output_dim
+        # self.fusion_dim = self.output_dim
+        self.fusion_dim = self.input_dim
 
         self.start_h = 0
         if len(self.node_features) == 0 and self.m_name not in ['krylov', 'cheby']:
@@ -29,6 +30,7 @@ class Fusion(Layer):
             self.vars['weights_'+str(i)] = glorot((self.input_dim, self.fusion_dim), name='weights_'+str(i))
 
         # You can add weights and make it one layer deep
+        self.vars['weights'] = glorot((self.input_dim, self.output_dim), name='weights_final')
 
     def _call(self, inputs):
         outputs = 0
@@ -41,4 +43,7 @@ class Fusion(Layer):
 
         outputs /= (self.n_layers - self.start_h)
         outputs = self.act(outputs)
+
+        # added additionally
+        outputs = tf.matmul(outputs, self.vars['weights'])
         return outputs

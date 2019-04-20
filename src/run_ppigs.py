@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'Fusion_Human_Ind'
+machine = 'HFusion_Human_Ind'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs
@@ -50,7 +50,7 @@ if not get_results_only:
     args['batch_size'] = [512]  # 16
     args['dims'] = ['128,128,128,128,128']
     args['neighbors'] = ['all,all,all,all,all']
-    args['max_depth'] = [1, 2, 3, 4]  # 1
+    args['max_depth'] = [3, 4]  # 1
     args['lr'] = [1e-2]
     args['l2'] = [0.]
     args['drop_in'] = [0.]

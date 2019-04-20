@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'Fusion_Cora_'
+machine = 'HFusion_Cora_'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs

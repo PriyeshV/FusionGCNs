@@ -28,7 +28,9 @@ class Fusion(Layer):
         # if len(self.node_features) == 0 and self.m_name no:
         #     self.start_h += 1
 
-        self.fusion_dim = self.output_dim
+        # self.fusion_dim = self.output_dim
+        self.fusion_dim = self.input_dim
+
         for i in range(self.start_h, self.n_layers):
             self.vars['weights_'+str(i)] = glorot((self.input_dim, self.fusion_dim), name='weights_'+str(i))
         self.vars['weights_final'] = identity((self.fusion_dim, self.output_dim), name='weights_final')
@@ -42,35 +44,10 @@ class Fusion(Layer):
         self.vars['weights_D'] = identity((self.fusion_dim, gate_dim), name='weights_D')
         self.vars['weights_V'] = tanh_init((1, gate_dim), name='weights_V')
 
+        self.vars['weights'] = glorot((self.input_dim, self.output_dim), name='weights_final2')
+
     def reduce_sum_attsop(self, x):
         return tf.matmul(x, tf.ones([self.output_dim, 1]))
-
-    def _call2(self, inputs):
-        outputs = []
-        for i in range(self.start_h, self.n_layers):
-            print('Fusion input:', i+1)
-            data = inputs['activations'][i+1]
-            data = tf.nn.dropout(data, 1 - self.dropout)
-            data = tf.matmul(data, self.vars['weights_'+str(i)])
-            outputs.append(data)
-
-        # Attention score:= < variables* A * Context >
-        context = 0
-        for i in range(self.start_h, self.n_layers):
-            context += outputs[i]
-        context /= (self.n_layers - self.start_h)
-        # context = tf.matmul(context, self.vars['weights_C'])
-
-        outs = 0
-        for i in range(self.start_h, self.n_layers):
-            # score = tf.reduce_sum(tf.multiply(outputs[i], context), axis=1, keep_dims=True)
-            score = self.reduce_sum_attsop(tf.multiply(outputs[i], context))
-            score = tf.nn.tanh(score)
-            outs += score*outputs[i]
-
-        # outs = tf.matmul(outs/(self.n_layers-self.start_h), self.vars['weights_final'])
-        outputs = self.act(outs)
-        return outputs
 
     def _call(self, inputs):
         outputs = []
@@ -97,6 +74,8 @@ class Fusion(Layer):
             outs += score*outputs[i]
 
         outs = tf.matmul(outs / (self.n_layers - self.start_h), self.vars['weights_final'])
-        # outs = tf.matmul(outs, self.vars['weights_final'])
         outputs = self.act(outs)
+
+        # added additionally
+        outputs = tf.matmul(outputs, self.vars['weights'])
         return outputs

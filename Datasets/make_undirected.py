@@ -1,11 +1,13 @@
-import pickle
 import networkx as nx
 import scipy.io as sio
 import scipy.sparse as sps
 from os import path
 
-datasets = ['cora', 'citeseer', 'pubmed', 'cora_multi',
-            'amazon', 'facebook', 'movielens', 'blogcatalog', 'ppigs_trans', 'ppigs', 'reddit_trans']
+# datasets = ['cora', 'citeseer', 'pubmed', 'cora_multi', 'mlgene'
+#             'amazon', 'facebook', 'movielens', 'blogcatalog', 'ppigs_trans', 'ppigs', 'reddit_trans']
+
+# datasets = ['movielens', 'blogcatalog', 'ppigs_trans', 'reddit_trans']
+datasets = ['amazon']
 
 for dataset in datasets:
     print('working on dataset: ', dataset)

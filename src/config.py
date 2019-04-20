@@ -141,10 +141,14 @@ class Config(object):
         # -------------------------------------------------------------------------------------------------------------
 
         # Set Model
-        self.kernel_class = getattr(importlib.import_module("src.layers.graph_convolutions."+args.aggKernel+"_kernel"), "Kernel")
-        self.prop_class = getattr(importlib.import_module("src.models."+args.propModel), "Propagation")
+
         if args.propModel in ['propagation_fusion', 'binomial_fusion']:
             self.fusion_class = getattr(importlib.import_module("src.layers."+'fusion_'+args.fusion), "Fusion")
+        self.kernel_class = getattr(importlib.import_module("src.layers.graph_convolutions."+args.aggKernel+"_kernel"), "Kernel")
+        self.prop_class = getattr(importlib.import_module("src.models."+args.propModel), "Propagation")
+
+        if args.aggKernel == 'chebyshev':
+            self.prop_class = getattr(importlib.import_module("src.models.binomial"), "Propagation")
 
         self.prop_model_name = args.propModel
         self.kernel_name = args.aggKernel

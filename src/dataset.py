@@ -125,9 +125,10 @@ class Dataset:
         # Load adjacency matrix - convert to sparse if not sparse # if not sp.issparse(adj):
         adjmat = sio.loadmat(config.paths['adjmat'])['adjmat']
 
-        graph = nx.from_scipy_sparse_matrix(adjmat)
+        # Uncomment if you intend to run them as undirected or if you haven't preprocessed the dataset to be undirected
+        # graph = nx.from_scipy_sparse_matrix(adjmat)
         # Makes it undirected graph it CSR format
-        adjmat = nx.adjacency_matrix(graph)
+        # adjmat = nx.adjacency_matrix(graph)
 
         f_adjlist_name = path.join(config.paths['datasets'], config.dataset_name, 'adjlist.pkl')
         if os.path.exists(f_adjlist_name):
@@ -135,7 +136,8 @@ class Dataset:
             with open(f_adjlist_name, "rb") as fp:
                 self.adjlist = pickle.load(fp)
         else:
-            print('does not exist')
+            print('Adjlist does not exist. Creating one. Might take time')
+            graph = nx.from_scipy_sparse_matrix(adjmat)
             self.adjlist = graph.adjacency_list()
             with open(f_adjlist_name, "wb") as fp:
                 pickle.dump(self.adjlist, fp)

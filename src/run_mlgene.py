@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'mlgene__'
+machine = 'HFusion_Mlgene__'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs

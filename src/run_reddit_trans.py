@@ -7,7 +7,7 @@ from src.tabulate_results import write_results
 from src.utils.utils import *
 import time
 
-machine = 'Fusion_reddit_trans_'
+machine = 'HFusion_reddit_trans_'
 get_results_only = False
 
 switch_gpus = False #For multiple GPUs
@@ -52,11 +52,11 @@ if not get_results_only:
     #     args['batch_size'] = [256]  # 16
     args['dims'] = ['128,128,128,128']
     args['neighbors'] = ['25,10,10,10']
-    args['max_depth'] = [1, 2]  # 1
+    args['max_depth'] = [1]  # 1
     args['lr'] = [1e-2]
     args['l2'] = [0.]
     args['drop_in'] = [0.]
-    args['drop_lr'] = [True]
+    args['drop_lr'] = [False]
     args['wce'] = [False]
     args['percents'] = [10]
     args['folds'] = ['1,2,3,4,5']
