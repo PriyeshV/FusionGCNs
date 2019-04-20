@@ -26,12 +26,11 @@ class Fusion(Layer):
         self.fusion_dim = self.input_dim
 
         self.start_h = 0
-        self.fusion_dim = self.output_dim
         self.lstm_fw_cell = tf.nn.rnn_cell.LSTMCell(self.fusion_dim, forget_bias=1.0)
         self.lstm_bw_cell = tf.nn.rnn_cell.LSTMCell(self.fusion_dim, forget_bias=1.0)
 
         self.vars['weights_att'] = glorot((self.fusion_dim*2, 1), name='weights_A')
-        self.vars['weights'] = glorot((self.input_dim, self.output_dim), name='weights_final')
+        self.vars['weights'] = glorot((self.fusion_dim*2, self.output_dim), name='weights_final')
 
     def _call(self, inputs):
         outputs = []

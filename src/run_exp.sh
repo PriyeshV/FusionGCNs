@@ -118,13 +118,13 @@ python run_ppigs.py kipf attention h h 1 1 6  &
 sleep 2s
 python run_ppigs.py kipf lstm_attention h h 1 1 0 &
 sleep 2s
-python run_ppigs.py chebyshev mean pool h h 1 1 1 &
+python run_ppigs.py chebyshev mean_pool h h 1 1 1 &
 sleep 2s
 python run_reddit_trans.py kipf lstm_attention h h 1 1 2 &
 sleep 2s
-python run_reddit_trans.py chebyshev mean pool h h 1 1 3 &
+python run_reddit_trans.py chebyshev mean_pool h h 1 1 3 &
 sleep 2s
 python run_ppigs_trans.py kipf lstm_attention h h 1 1 4 &
 sleep 2s
-python run_ppigs_trans.py chebyshev mean pool h h 1 1 5 &
+python run_ppigs_trans.py chebyshev mean_pool h h 1 1 5 &
 sleep 2s

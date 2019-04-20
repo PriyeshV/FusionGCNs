@@ -33,7 +33,8 @@ class Fusion(Layer):
 
         for i in range(self.start_h, self.n_layers):
             self.vars['weights_'+str(i)] = glorot((self.input_dim, self.fusion_dim), name='weights_'+str(i))
-        self.vars['weights_final'] = identity((self.fusion_dim, self.output_dim), name='weights_final')
+        # self.vars['weights_final'] = identity((self.fusion_dim, self.output_dim), name='weights_final')
+        self.vars['weights_final'] = identity((self.fusion_dim, self.fusion_dim), name='weights_final')
 
         # Matrix gating
         self.vars['weights_A'] = identity((self.fusion_dim, self.fusion_dim), name='weights_A')
@@ -44,10 +45,11 @@ class Fusion(Layer):
         self.vars['weights_D'] = identity((self.fusion_dim, gate_dim), name='weights_D')
         self.vars['weights_V'] = tanh_init((1, gate_dim), name='weights_V')
 
-        self.vars['weights'] = glorot((self.input_dim, self.output_dim), name='weights_final2')
+        self.vars['weights'] = glorot((self.fusion_dim, self.output_dim), name='weights_final2')
 
     def reduce_sum_attsop(self, x):
-        return tf.matmul(x, tf.ones([self.output_dim, 1]))
+        # return tf.matmul(x, tf.ones([self.output_dim, 1]))
+        return tf.matmul(x, tf.ones([self.fusion_dim, 1]))
 
     def _call(self, inputs):
         outputs = []

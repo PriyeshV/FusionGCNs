@@ -56,8 +56,8 @@ if not get_results_only:
     args['drop_in'] = [0.]
     args['drop_lr'] = [True]
     args['wce'] = [False]
-    args['percents'] = [10]
-    args['folds'] = ['1,2,3,4,5']
+    args['percents'] = [80]
+    args['folds'] = ['1']
     args['skip_connections'] = [True]
     args['propModel'] = ['propagation_fusion']
 

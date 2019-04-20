@@ -30,7 +30,7 @@ class Fusion(Layer):
             self.vars['weights_'+str(i)] = glorot((self.input_dim, self.fusion_dim), name='weights_'+str(i))
 
         # You can add weights and make it one layer deep
-        self.vars['weights'] = glorot((self.input_dim, self.output_dim), name='weights_final')
+        self.vars['weights'] = glorot((self.fusion_dim, self.output_dim), name='weights_final')
 
     def _call(self, inputs):
         outputs = 0
