@@ -12,7 +12,7 @@ class Parser(object):  #
         parser.add_argument("--propModel", default='propagation_fusion', help='propagation model names',
                             choices=['propagation', 'propagation_fusion', 'krylov1', 'krylov2'
                                      'chebyshev', 'attention', 'binomial', 'binomial_fusion'])
-        parser.add_argument("--aggKernel", default='chebyshev', help="kernel names",
+        parser.add_argument("--aggKernel", default='kipf', help="kernel names",
                             choices=['kipf', 'simple', 'chebyshev', 'add_attention', 'mul_attention'])
         parser.add_argument("--fusion", default='mean_pool', choices=['mean_pool', 'max_pool', 'attention', 'lstm_attention',
                                                                            'mean_pool2', 'max_pool2', 'attention2',
