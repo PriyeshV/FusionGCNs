@@ -12,7 +12,7 @@ All required packages to run the models here are provided in installations.sh
 The Frameworks provides different kernels and fusion components for performing Semi-Supervised learning for Node classification.
 
 ###### Graph Kernels:
-    1> Graph Convolutional Networks (GCN) Kernel 
+    1> Graph Convolutional Networks Kernel 
     2> Node Information Preserving Kernel 
     3> Fusion GCN Kernels
 
