@@ -28,7 +28,7 @@ class Fusion(Layer):
         self.lstm_fw_cell = tf.nn.rnn_cell.LSTMCell(self.fusion_dim, forget_bias=1.0)
         self.lstm_bw_cell = tf.nn.rnn_cell.LSTMCell(self.fusion_dim, forget_bias=1.0)
 
-        self.vars['weights_att'] = glorot((self.fusion_dim*2, 1), name='weights_A')
+        self.vars['weights_label'] = glorot((self.fusion_dim*2, self.output_dim), name='weights_labels')
 
 
     def _call(self, inputs):
@@ -42,5 +42,5 @@ class Fusion(Layer):
         attention_score = tf.nn.softmax(tf.contrib.slim.fully_connected(rnn_outputs, 1))
         rnn_outputs = tf.multiply(rnn_outputs, attention_score)
         outputs = tf.reduce_sum(rnn_outputs, axis=0)
-        # outputs = self.act(outputs)
+        outputs = tf.matmul(outputs, self.vars['weights_label'])
         return outputs

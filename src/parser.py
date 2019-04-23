@@ -14,7 +14,7 @@ class Parser(object):  #
                                      'chebyshev', 'attention', 'binomial', 'binomial_fusion'])
         parser.add_argument("--aggKernel", default='kipf', help="kernel names",
                             choices=['kipf', 'simple', 'chebyshev', 'add_attention', 'mul_attention'])
-        parser.add_argument("--fusion", default='mean_pool', choices=['mean_pool', 'max_pool', 'attention', 'lstm_attention',
+        parser.add_argument("--fusion", default='lstm_attention2', choices=['mean_pool', 'max_pool', 'attention', 'lstm_attention',
                                                                            'mean_pool2', 'max_pool2', 'attention2',
                                                                            'lstm_attention2'])
 
@@ -38,7 +38,7 @@ class Parser(object):  #
         parser.add_argument("--drop_edges", default=0., help="Randomly drop edges at each depth", type=float, choices=np.round(np.arange(0, 1, 0.1), 1))
 
         # Dataset Details
-        parser.add_argument("--dataset", default='citeseer', help="Dataset to evluate | Check Datasets folder",
+        parser.add_argument("--dataset", default='cora', help="Dataset to evluate | Check Datasets folder",
                             choices=['cora', 'citeseer', 'wiki', 'amazon', 'facebook', 'cora_multi', 'movielens', 'pubmed',
                                     'ppi_gs_trans', 'blogcatalog', 'genes_fn', 'mlgene', 'ppi_gs', 'reddit_trans', 'reddit_ind'])
         parser.add_argument("--labels", default='labels_random', help="Label Sampling Type")
