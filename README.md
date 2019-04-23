@@ -1,7 +1,6 @@
 # Fusion-GCNs: Fusion Graph Convolutional Networks
 
-Graph Convolutional Networks with Fusion components to effectively regulate information from multiple hops. This project has 
-models implemented from Xu et al's paper, 'Representation Learning on Graphs with Jumping Knowledge Networks', ICML'2018. 
+This project provides a Graph Convolutional Network (GCNs) framework with multiple fusion components. These fusion components allow GCNs to effectively capture information from multiple hops. All the three models from from Xu et al's paper, 'Representation Learning on Graphs with Jumping Knowledge Networks', ICML'2018 is available too.
 
 
 #### Installation
@@ -10,7 +9,7 @@ All required packages to run the models here are provided in installations.sh
 
 ### Contents
 
-The Frameworks provides different kernels for performing Semi-Supervised learning for Node classification.
+The Frameworks provides different kernels and fusion components for performing Semi-Supervised learning for Node classification.
 
 ###### Graph Kernels:
     1> Graph Convolutional Networks (GCN) Kernel 
