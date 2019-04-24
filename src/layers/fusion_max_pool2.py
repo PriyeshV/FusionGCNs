@@ -17,22 +17,18 @@ class Fusion(Layer):
         self.bias = bias
 
         self.start_h = 0
-        # self.fusion_dim = self.output_dim
-        self.fusion_dim = self.input_dim
+        self.fusion_dim = self.output_dim
         for i in range(self.start_h, self.n_layers):
             self.vars['weights_' + str(i)] = glorot((self.input_dim, self.fusion_dim), name='weights_' + str(i))
 
     def _call(self, inputs):
-        # outputs = []
-        # for i in range(self.start_h, self.n_layers):
-        #     print('Fusion input:', i+1)
-        #     data = inputs['activations'][i+1]
-        #     data = tf.nn.dropout(data, 1 - self.dropout)
-        #     data = tf.matmul(data, self.vars['weights_'+str(i)])
-        #     outputs.append(data)
-
-        # added additionally
-        outputs = inputs['activations'][1:]
+        outputs = []
+        for i in range(self.start_h, self.n_layers):
+            print('Fusion input:', i+1)
+            data = inputs['activations'][i+1]
+            data = tf.nn.dropout(data, 1 - self.dropout)
+            data = tf.matmul(data, self.vars['weights_'+str(i)])
+            outputs.append(data)
 
         outputs = tf.stack(outputs, axis=2)
         outputs = tf.reduce_max(outputs, axis=2)

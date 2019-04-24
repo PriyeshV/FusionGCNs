@@ -14,7 +14,7 @@ class Parser(object):  #
                                      'chebyshev', 'attention', 'binomial', 'binomial_fusion'])
         parser.add_argument("--aggKernel", default='kipf', help="kernel names",
                             choices=['kipf', 'simple', 'chebyshev', 'add_attention', 'mul_attention'])
-        parser.add_argument("--fusion", default='lstm_attention2', choices=['mean_pool', 'max_pool', 'attention', 'lstm_attention',
+        parser.add_argument("--fusion", default='max_pool2', choices=['mean_pool', 'max_pool', 'attention', 'lstm_attention',
                                                                            'mean_pool2', 'max_pool2', 'attention2',
                                                                            'lstm_attention2'])
 
