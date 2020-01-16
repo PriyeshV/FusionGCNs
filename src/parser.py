@@ -25,7 +25,7 @@ class Parser(object):  #
         parser.add_argument("--dims", default='8,8,8,8,8', help="Dimensions of hidden layers: comma separated")
         parser.add_argument("--skip_connections", default=True, help="output layer added", type=self.str2bool)
 
-        parser.add_argument("--shared_weights", default=0, type=int)
+        parser.add_argument("--shared_weights", default=1, type=int)
         parser.add_argument("--bias", default=False, type=self.str2bool)
         parser.add_argument("--sparse_features", default=True, help="For current datasets - manually set in config.py", type=self.str2bool)
 

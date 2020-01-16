@@ -62,29 +62,8 @@ class Fusion(Layer):
         attention_score = tf.contrib.slim.fully_connected(outputs, 1)
         outputs = tf.multiply(outputs, attention_score)
         outputs = tf.reduce_sum(outputs, axis=0)
-        outputs = tf.nn.l2_normalize(outputs, dim=1)
+        outputs = tf.nn.l2_normalize(outputs, dim=0)
 
         outputs = self.act(outputs)
         outputs = tf.matmul(outputs, self.vars['weights'])
         return outputs
-
-        # Attention score:= tanh [W_V * ( Context * W_C + D * W_D)]
-        # context = 0
-        # for i in range(self.start_h, self.n_layers):
-        #     context += outputs[i]
-        # context /= (self.start_h - self.n_layers)
-        # context = tf.matmul(context, self.vars['weights_C'])
-        #
-        # outs = 0
-        # for i in range(self.start_h, self.n_layers):
-        #     temp = tf.matmul(outputs[i], self.vars['weights_D']) + context
-        #     score = self.reduce_sum_attsop(tf.multiply(temp, self.vars['weights_V']))
-        #     score = tf.nn.tanh(score)
-        #     outs += score*outputs[i]
-        #
-        # outs = tf.matmul(outs / (self.n_layers - self.start_h), self.vars['weights_final'])
-        # outputs = self.act(outs)
-
-        # added additionally
-        # outputs = tf.matmul(outputs, self.vars['weights'])
-        # return outputs
