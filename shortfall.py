@@ -2,7 +2,8 @@ import numpy as np
 from scipy.stats import rankdata
 
 
-data = np.loadtxt('fusion.txt').T
+data = np.loadtxt('fgcn-aistats.txt').T
+# data = np.loadtxt('skip-anal.txt').T
 # data = np.loadtxt('fusion-models.txt').T
 
 n_datasets, n_models = data.shape

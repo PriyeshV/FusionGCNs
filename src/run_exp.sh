@@ -1,5 +1,48 @@
 #!/usr/bin/env bash
 
+python run_cora_multi.py kipf mean_pool h h 1 5 0
+sleep 2s
+python run_amazon.py kipf mean_pool h h 1 5 0
+sleep 2s
+python run_mlgene.py kipf mean_pool h h 1 5 0
+sleep 2s
+python run_ppigs_tran.py kipf mean_pool h h 1 5 0
+sleep 2s
+
+python run_cora_multi.py kipf mean_pool2 h h 1 5 0
+sleep 2s
+python run_amazon.py kipf mean_pool2 h h 1 5 0
+sleep 2s
+python run_mlgene.py kipf mean_pool2 h h 1 5 0
+sleep 2s
+python run_ppigs_tran.py kipf mean_pool2 h h 1 5 0
+sleep 2s
+
+
+python run_cora_multi.py kipf max_pool2 h h 1 1 3 &
+
+
+
+python run_citeseer.py kipf lstm_attention2 h h 1 1 4 &
+sleep 2s
+python run_cora.py kipf lstm_attention2 h h 1 1 4 &
+sleep 2s
+python run_amazon.py kipf lstm_attention2 h h 1 1 4 &
+sleep 2s
+python run_facebook.py kipf lstm_attention2 h h 1 1 2 &
+sleep 2s
+python run_reddit_trans.py kipf lstm_attention2 h h 1 1 5 &
+sleep 2s
+python run_ppigs_trans.py kipf lstm_attention2 h h 1 1 1 &
+sleep 2s
+python run_movie.py kipf lstm_attention2 h h 1 1 2 &
+sleep 2s
+python run_ppigs.py kipf lstm_attention2 h h 1 1 3 &
+sleep 2s
+python run_mlgene.py kipf lstm_attention2 h h 1 1 4 &
+sleep 2s
+python run_pubmed.py kipf lstm_attention2 h h 1 1 4 &
+
 #python run_blog.py chebyshev mean_pool h h 1 1 6 #
 #sleep 2s
 #python run_blog.py kipf mean_pool h h 1 1 6

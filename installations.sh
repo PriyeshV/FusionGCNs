@@ -13,6 +13,8 @@ sudo ./configure --with-ensurepip=install --prefix=/data/Python-3.5.2
 sudo make altinstall
 #sudo apt-get install python3.5-venv
 
+virtualenv --python=bin/python2.7 /data1/Vi
+
 cd ~
 mkdir Virtualenvs
 python3.5 -m venv Virtualenvs/tf-1.3-nx1.9
