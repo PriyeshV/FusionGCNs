@@ -28,9 +28,7 @@ class Fusion(Layer):
         # if len(self.node_features) == 0 and self.m_name no:
         #     self.start_h += 1
 
-        # self.fusion_dim = self.output_dim
         self.fusion_dim = self.input_dim
-
         for i in range(self.start_h, self.n_layers):
             self.vars['weights_'+str(i)] = glorot((self.input_dim, self.fusion_dim), name='weights_'+str(i))
         # self.vars['weights_final'] = identity((self.fusion_dim, self.output_dim), name='weights_final')
