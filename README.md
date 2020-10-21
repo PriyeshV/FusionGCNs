@@ -62,6 +62,7 @@ Dataset details
     3> folds to run with 'folds'
     ...
    Datasets used in the paper with their train/test/val splits are available in https://bit.ly/2ZxTipS
+   
 Training details
 
     1> drop learning rate with patience based stopping criteria with 'drop_lr'
